@@ -64,6 +64,7 @@ public class Runtime implements Runnable {
                     iterator.remove();
                 }
             }
+
             carChanges++;
         } catch (Exception e) {
             RoadSystem.getLogger().error("Stopping Runtime: " + e.getMessage());
