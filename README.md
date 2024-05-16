@@ -35,3 +35,7 @@ Um das Projekt zu benutzen, muss der SourceCode heruntergeladen werden und in ei
 - `entitiesAmount` -> Anzahl der Fahrzeuge
 - `tickSpeed` -> Zeit, die pro Tick gebraucht wird (in Millisekunden)
 - `carsPercentage` -> Prozentuale Anzahl an Autos. 0.5 würde bei zwei Fahrzeuge ein Auto und ein Motorrad bedeuten
+
+
+## Bilder der Applikation
+![Beispiel Simulation mit 5 Autos](https://img.cyzetlc.de/aw2jFKuUm7)
