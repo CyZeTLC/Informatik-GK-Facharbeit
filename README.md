@@ -11,7 +11,7 @@ Primäres Ziel des Projektes ist anhand der Simulation die Entwicklung von Staus
 
 ## Installation
 
-Um das Projekt zu benutzen, muss der SourceCode heruntergeladen werden und in eine IDE eingefügt werden. Beim erstmaligen Starten des Projektes erstellt sich automatisch eine `config.json` Datei, in welcher alle Konfigurationen getroffen werden können.
+Um das Projekt zu benutzen, muss der SourceCode heruntergeladen werden und in eine IDE eingefügt werden. Eine andere Option wäre, die Jar-Datei aus den Releases herunterzuladen und diese auszuführen. Beim erstmaligen Starten des Projektes erstellt sich automatisch eine `config.json` Datei, in welcher alle Konfigurationen getroffen werden können.
 
 ### Config
 
