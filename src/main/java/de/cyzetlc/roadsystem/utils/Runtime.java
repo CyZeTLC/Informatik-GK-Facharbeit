@@ -7,6 +7,7 @@ import de.cyzetlc.roadsystem.utils.roadtraffic.vehicles.Vehicle;
 import lombok.Getter;
 
 import java.awt.*;
+import java.util.Iterator;
 
 public class Runtime implements Runnable {
     private final GuiScreen screen;
@@ -20,45 +21,53 @@ public class Runtime implements Runnable {
 
     @Override
     public void run() {
-        this.screen.draw();
+        try {
+            this.screen.draw();
 
-        for (Vehicle vehicle : RoadSystem.getInstance().getVehicleHandler().getVehicles()) {
-            TrafficJam tJam = RoadSystem.getInstance().getRoadHandler().getTrafficJamOfVehicle(vehicle);
-            if (tJam != null) {
-                if (tJam.getVehicles().getFirst().equals(vehicle)) {
+            for (Vehicle vehicle : RoadSystem.getInstance().getVehicleHandler().getVehicles()) {
+                TrafficJam tJam = RoadSystem.getInstance().getRoadHandler().getTrafficJamOfVehicle(vehicle);
+                if (tJam != null) {
+                    if (tJam.getVehicles().getFirst().equals(vehicle)) {
+                        vehicle.drive();
+                    }
+                } else {
                     vehicle.drive();
                 }
-            } else {
-                vehicle.drive();
-            }
 
-            for (Vehicle otherVehicle : RoadSystem.getInstance().getVehicleHandler().getVehicles()) {
-                if (vehicle != otherVehicle) {
-                    if (vehicle.getNextTarget().equals(otherVehicle.getNextTarget())) {
-                        TrafficJam trafficJam = RoadSystem.getInstance().getRoadHandler().getTrafficJamByIntersection(vehicle.getNextTarget());
-                        if (trafficJam != null) {
-                            trafficJam.getVehicles().add(vehicle);
-                        } else {
-                            trafficJam = new TrafficJam(vehicle.getNextTarget());
-                            trafficJam.getVehicles().add(vehicle);
+                for (Vehicle otherVehicle : RoadSystem.getInstance().getVehicleHandler().getVehicles()) {
+                    if (vehicle != otherVehicle) {
+                        if (vehicle.getNextTarget().equals(otherVehicle.getNextTarget())) {
+                            TrafficJam trafficJam = RoadSystem.getInstance().getRoadHandler().getTrafficJamByIntersection(vehicle.getNextTarget());
+                            if (trafficJam != null) {
+                                trafficJam.getVehicles().add(vehicle);
+                            } else {
+                                trafficJam = new TrafficJam(vehicle.getNextTarget());
+                                trafficJam.getVehicles().add(vehicle);
 
-                            RoadSystem.getInstance().getRoadHandler().getTrafficJams().add(trafficJam);
-                            RoadSystem.getInstance().getRoadHandler().setTrafficJamesCount(RoadSystem.getInstance().getRoadHandler().getTrafficJamesCount() + 1);
+                                RoadSystem.getInstance().getRoadHandler().getTrafficJams().add(trafficJam);
+                                RoadSystem.getInstance().getRoadHandler().setTrafficJamesCount(RoadSystem.getInstance().getRoadHandler().getTrafficJamesCount() + 1);
+                            }
+                            break;
                         }
-                        break;
                     }
                 }
+                vehicle.draw((Graphics2D) this.screen.getGraphics());
             }
-            vehicle.draw((Graphics2D) this.screen.getGraphics());
-        }
 
-        for (TrafficJam trafficJam : RoadSystem.getInstance().getRoadHandler().getTrafficJams()) {
-            trafficJam.getVehicles().remove(trafficJam.getVehicles().getFirst());
+            for (Iterator<TrafficJam> iterator = RoadSystem.getInstance().getRoadHandler().getTrafficJams().iterator(); iterator.hasNext(); ) {
+                TrafficJam trafficJam = iterator.next();
+                if (!trafficJam.getVehicles().isEmpty()) {
+                    trafficJam.getVehicles().remove(0);
+                }
 
-            if (trafficJam.getVehicles().size() == 0) {
-                RoadSystem.getInstance().getRoadHandler().getTrafficJams().remove(trafficJam);
+                if (trafficJam.getVehicles().isEmpty()) {
+                    iterator.remove();
+                }
             }
+            carChanges++;
+        } catch (Exception e) {
+            RoadSystem.getLogger().error("Stopping Runtime: " + e.getMessage());
+            Thread.currentThread().interrupt();
         }
-        carChanges++;
     }
 }

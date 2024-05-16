@@ -46,6 +46,7 @@ public class GuiScreen extends JPanel implements KeyListener {
         this.init();
         this.runtime = Executors.newScheduledThreadPool(1);
         this.runtime.scheduleAtFixedRate(new Runtime(this), 0, RoadSystem.getInstance().getTickSpeed(), TimeUnit.MILLISECONDS);
+
     }
 
     /**
