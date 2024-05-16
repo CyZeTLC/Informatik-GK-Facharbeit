@@ -77,9 +77,23 @@ public class GuiScreen extends JPanel implements KeyListener {
         g2dComponent.drawImage(bufferedImage, null, 0, 0);
     }
 
+    /**
+     * The keyTyped function in Java is a method that is called when a key is typed.
+     *
+     * @param key The `key` parameter in the `keyTyped` method represents the key that was typed by the user. This
+     * parameter is of type `KeyEvent`, which contains information about the key event, such as the key code, key char, and
+     * modifiers.
+     */
     public void keyTyped(KeyEvent key) {
     }
 
+    /**
+     * The function keyPressed handles key events to show or hide a node and toggle the display of road length.
+     *
+     * @param key The `key` parameter in the `keyPressed` method represents the KeyEvent object that contains information
+     * about the key that was pressed by the user. The `KeyEvent` class provides methods like `getKeyCode()` which returns
+     * the integer keyCode for the key that was pressed.
+     */
     public void keyPressed(KeyEvent key) {
         if (key.getKeyCode() == 116) {
             this.showNode = true;
@@ -90,6 +104,13 @@ public class GuiScreen extends JPanel implements KeyListener {
         }
     }
 
+    /**
+     * The keyReleased function sets the showNode variable to false if the released key has the keycode 116.
+     *
+     * @param key The `key` parameter in the `keyReleased` method represents the `KeyEvent` object that contains
+     * information about the key event that occurred, such as the key code of the key that was released. In this specific
+     * code snippet, the method checks if the key code of the released key is equal to
+     */
     public void keyReleased(KeyEvent key) {
         if (key.getKeyCode() == 116) {
             this.showNode = false;
