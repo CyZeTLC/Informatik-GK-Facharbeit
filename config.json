@@ -1,0 +1,13 @@
+{
+  "entitiesAmount": 5,
+  "tickSpeed": 500,
+  "carsPercentage": 1,
+  "mysql": {
+    "hostname": "81.30.146.119",
+    "port": 3306,
+    "database": "cyze_java_school_graph",
+    "username": "admindb",
+    "password": "EzQNG9KGZVKkd",
+    "poolSize": 3
+  }
+}
